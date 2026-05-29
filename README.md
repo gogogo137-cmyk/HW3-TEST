@@ -2,6 +2,9 @@
 
 Welcome to my personal dynamic greeting space. This project features a high-fidelity, interactive, and responsive web card showcasing a personalized greeting, a live clock widget, and a theme switcher.
 
+🔗 **Live Demo**: [https://gogogo137-cmyk.github.io/L1/](https://gogogo137-cmyk.github.io/L1/) (GitHub Pages)  
+💻 **GitHub Repository**: [https://github.com/gogogo137-cmyk/L1](https://github.com/gogogo137-cmyk/L1)
+
 ---
 
 ## 🌟 Features
