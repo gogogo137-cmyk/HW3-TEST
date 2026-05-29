@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greeting - gogogo137</title>
+    
+    <!-- Modern Google Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Plus+Jakarta+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-gradient-1: #0f172a;
+            --bg-gradient-2: #020617;
+            --accent-glow-1: rgba(99, 102, 241, 0.15);
+            --accent-glow-2: rgba(236, 72, 153, 0.15);
+            --card-bg: rgba(15, 23, 42, 0.65);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --theme-color-1: #6366f1;
+            --theme-color-2: #ec4899;
+            --shadow-color: rgba(0, 0, 0, 0.5);
+        }
+
+        /* Light Theme Override */
+        body.light-theme {
+            --bg-gradient-1: #f1f5f9;
+            --bg-gradient-2: #e2e8f0;
+            --accent-glow-1: rgba(99, 102, 241, 0.08);
+            --accent-glow-2: rgba(236, 72, 153, 0.08);
+            --card-bg: rgba(255, 255, 255, 0.7);
+            --card-border: rgba(99, 102, 241, 0.15);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --theme-color-1: #4f46e5;
+            --theme-color-2: #db2777;
+            --shadow-color: rgba(99, 102, 241, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: background-color 0.5s ease, border-color 0.5s ease, color 0.3s ease;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at 0% 0%, var(--bg-gradient-1), var(--bg-gradient-2) 80%);
+            color: var(--text-primary);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Glowing Background Blobs */
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.8;
+            animation: float 20s infinite alternate ease-in-out;
+        }
+
+        .blob-1 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--accent-glow-1) 0%, transparent 70%);
+            top: -10%;
+            left: 10%;
+        }
+
+        .blob-2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--accent-glow-2) 0%, transparent 70%);
+            bottom: -15%;
+            right: 5%;
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            50% {
+                transform: translate(50px, 30px) scale(1.1);
+            }
+            100% {
+                transform: translate(-30px, -50px) scale(0.9);
+            }
+        }
+
+        /* Card Container */
+        .card {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 500px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 40px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 25px 50px -12px var(--shadow-color);
+            text-align: center;
+            transform: translateY(0);
+            animation: cardAppear 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes cardAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(40px) scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: 1px solid var(--card-border);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 20;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(15deg);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--theme-color-1);
+        }
+
+        body.light-theme .theme-toggle:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        /* Avatar/Icon Badge */
+        .avatar-container {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .avatar-glow {
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--theme-color-1), var(--theme-color-2));
+            opacity: 0.7;
+            filter: blur(8px);
+            animation: pulse 3s infinite alternate;
+        }
+
+        .avatar {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: var(--bg-gradient-2);
+            border: 3px solid var(--card-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: var(--text-primary);
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.98);
+                opacity: 0.6;
+            }
+            100% {
+                transform: scale(1.04);
+                opacity: 0.9;
+            }
+        }
+
+        /* Typography & Texts */
+        .greeting-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 99px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--theme-color-1);
+            margin-bottom: 16px;
+        }
+
+        body.light-theme .greeting-badge {
+            background: rgba(99, 102, 241, 0.08);
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--text-primary) 30%, var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .username {
+            background: linear-gradient(135deg, var(--theme-color-1), var(--theme-color-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .subtitle {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            font-weight: 400;
+        }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--card-border), transparent);
+            margin: 24px 0;
+        }
+
+        /* Live Clock & Calendar Section */
+        .datetime-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .time-display {
+            font-family: 'Outfit', sans-serif;
+            font-size: 48px;
+            font-weight: 600;
+            letter-spacing: -1px;
+            color: var(--text-primary);
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .date-display {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--theme-color-1);
+            letter-spacing: 0.5px;
+        }
+
+        .timezone-display {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        /* Interactive Footer Link/Button */
+        .footer-action {
+            margin-top: 32px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--theme-color-1), var(--theme-color-2));
+            color: white !important;
+            padding: 12px 24px;
+            border-radius: 99px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 8px 20px -6px rgba(99, 102, 241, 0.4);
+            cursor: pointer;
+            border: none;
+            outline: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .footer-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px -4px rgba(99, 102, 241, 0.6);
+        }
+
+        .footer-action:active {
+            transform: translateY(0);
+        }
+
+        /* Responsive designs */
+        @media (max-width: 480px) {
+            .card {
+                padding: 32px 20px;
+            }
+            h1 {
+                font-size: 26px;
+            }
+            .time-display {
+                font-size: 38px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ambient Blobs -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <div class="card" id="main-card">
+        <!-- Theme Toggle Button -->
+        <button class="theme-toggle" id="theme-toggle-btn" aria-label="Toggle Theme" title="Toggle theme">
+            <i class="fa-solid fa-moon" id="theme-icon"></i>
+        </button>
+
+        <!-- Profile Avatar Display -->
+        <div class="avatar-container">
+            <div class="avatar-glow"></div>
+            <div class="avatar">
+                <i class="fa-solid fa-user-astronaut"></i>
+            </div>
+        </div>
+
+        <!-- Greeting Info -->
+        <span class="greeting-badge" id="greeting-badge">Welcome</span>
+        <h1>Hello, my name is <br><span class="username">gogogo137</span></h1>
+        <p class="subtitle">Full Stack Developer & Tech Enthusiast</p>
+
+        <div class="divider"></div>
+
+        <!-- Live Clock Widget -->
+        <div class="datetime-container">
+            <div class="time-display" id="clock-display">00:00:00</div>
+            <div class="date-display" id="date-display">Loading date...</div>
+            <div class="timezone-display">
+                <i class="fa-solid fa-earth-americas"></i>
+                <span id="timezone-text">UTC</span>
+            </div>
+        </div>
+
+        <!-- Action Button -->
+        <button class="footer-action" id="action-btn">
+            <span>Say Hello!</span>
+            <i class="fa-regular fa-paper-plane"></i>
+        </button>
+    </div>
+
+    <script>
+        // Update Live Clock and Calendar
+        function updateClock() {
+            const now = new Date();
+            
+            // Format Time
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let seconds = now.getSeconds();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            
+            // Convert to 12-hour format
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            
+            // Zero-pad minutes and seconds
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+            
+            const timeString = `${hours}:${minutes}:${seconds} ${ampm}`;
+            document.getElementById('clock-display').textContent = timeString;
+
+            // Format Date (e.g., Friday, May 29, 2026)
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const dateString = now.toLocaleDateString('en-US', options);
+            document.getElementById('date-display').textContent = dateString;
+
+            // Dynamically change welcoming badge based on time of day
+            const curHour = now.getHours();
+            const badge = document.getElementById('greeting-badge');
+            if (curHour < 12) {
+                badge.textContent = "Good Morning";
+            } else if (curHour < 18) {
+                badge.textContent = "Good Afternoon";
+            } else {
+                badge.textContent = "Good Evening";
+            }
+        }
+
+        // Initialize timezone display
+        function initTimezone() {
+            try {
+                const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                document.getElementById('timezone-text').textContent = tz || 'Local Time';
+            } catch (e) {
+                document.getElementById('timezone-text').textContent = 'Local Time';
+            }
+        }
+
+        // Theme Toggle Handler
+        const themeBtn = document.getElementById('theme-toggle-btn');
+        const themeIcon = document.getElementById('theme-icon');
+        const body = document.body;
+
+        themeBtn.addEventListener('click', () => {
+            body.classList.toggle('light-theme');
+            if (body.classList.contains('light-theme')) {
+                themeIcon.className = 'fa-solid fa-sun';
+            } else {
+                themeIcon.className = 'fa-solid fa-moon';
+            }
+        });
+
+        // Say Hello Interactive Action
+        const actionBtn = document.getElementById('action-btn');
+        actionBtn.addEventListener('click', () => {
+            // Confetti or visual click response
+            actionBtn.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                actionBtn.style.transform = 'translateY(-2px)';
+            }, 100);
+
+            // Dynamically update alert message or add nice bubble effect
+            alert("Hello gogogo137! Hope you have an amazing day!");
+        });
+
+        // Run clock immediately and start interval
+        updateClock();
+        initTimezone();
+        setInterval(updateClock, 1000);
+    </script>
+</body>
+</html>
