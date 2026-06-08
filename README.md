@@ -4,7 +4,7 @@ Welcome to my personal dynamic greeting space. This project features a high-fide
 
 🔗 **Live Demo**: [https://gogogo137-cmyk.github.io/L1/](https://gogogo137-cmyk.github.io/L1/) (GitHub Pages)  
 💻 **GitHub Repository**: [https://github.com/gogogo137-cmyk/L1](https://github.com/gogogo137-cmyk/L1)
-
+<img width="266" height="189" alt="123" src="https://github.com/user-attachments/assets/f63139d3-0e5d-4e67-9ed6-fdbc44d5ad34" /> 線性回歸: https://hw3-test-tqvwiyr9gnaeqp3yn2ma4z.streamlit.app/
 ---
 
 ## 🌟 Features
